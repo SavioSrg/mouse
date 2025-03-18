@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tela1.css">
+    <link rel="stylesheet" href="styles/tela2.css">
+    <link rel="stylesheet" href="styles/tela4.css">
+    <title>Treinamento de Mouse</title>
+</head>
+
+<body>
+    <div id="screen1" class="screen active">
+        <div id="cadastro">
+            <h2>Digite seu nome e grupo</h2>
+            <input type="text" id="playerName" placeholder="Nome" required>
+            <select id="playerGroup" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="Girassol">Girassol</option>
+                <option value="Juntos Somos + em ação">Juntos Somos + em ação</option>
+                <option value="Construindo Saber">Construindo Saber</option>
+                <option value="Grupo administrativo">Grupo administrativo</option>
+            </select>
+            <button id="btn" onclick="goToScreen(2)">Continuar</button>
+        </div>
+    </div>
+
+    <div id="screen2" class="screen">
+        <div id="configuracao">
+            <h2>Configurações</h2>
+            <label for="difficulty">Nível:</label>
+            <select id="difficulty">
+                <option value="100">1</option>
+                <option value="80">2</option>
+                <option value="60">3</option>
+                <option value="40">4</option>
+                <option value="20">5</option>
+            </select>
+            <label for="duration">Duração:</label>
+            <select id="duration">
+                <option value="30">30s</option>
+                <option value="60">60s</option>
+                <option value="90">90s</option>
+                <option value="120">120s</option>
+            </select>
+            <label for="targetColor">Cor do Alvo:</label>
+            <input type="color" id="targetColor" value="#ffff00">
+            <label>
+                <input type="checkbox" id="autoMode"> Modo Automático (pontuar ao passar o mouse)
+            </label>
+            <button id="btn" onclick="startGame()">Iniciar</button>
+        </div>
+    </div>
+
+    <div id="screen3" class="screen">
+        <div class="stats">
+            <div class="stat-box">Tempo: <span id="time">0</span>s</div>
+            <div class="stat-box">Acertos: <span id="score">0</span></div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="game-container" id="gameContainer"></div>
+    </div>
+
+    <div id="screen4" class="screen">
+        <h2>Resultados</h2>
+        <div id="" class="results">
+            <!-- Métricas para o Modo Manual -->
+            <div id="manualStats">
+                <div class="stat-box">Alvos: <br>Acertos: <span id="hits">0</span><br>Erros: <span
+                        id="misses">0</span><br>Média/s: <span id="hitsPerSecond">0</span></div>
+                <div class="stat-box">Cliques: <br>Acertos: <span id="clicksHits">0</span><br>Erros: <span
+                        id="clicksMisses">0</span><br>Média/s: <span id="clicksPerSecond">0</span></div>
+                <div class="stat-box">Pontuação: <span id="finalScore">0</span></div>
+                <div class="stat-box">Eficiência Alvo: <span id="targetEfficiency">0%</span></div>
+                <div class="stat-box">Precisão de Clique: <span id="clickAccuracy">0%</span></div>
+            </div>
+            <!-- Métricas para o Modo Automático -->
+            <div id="autoResults" style="display: none;">
+                <div class="stat-box">Pontuação: <span id="finalScoreAuto">0</span></div>
+                <div class="stat-box">Tempo Médio: <span id="averageTimeResult">0ms</span></div>
+                <div class="stat-box">Melhor Tempo: <span id="bestTimeResult">0ms</span></div>
+                <div class="stat-box">Pior Tempo: <span id="worstTimeResult">0ms</span></div>
+                <div class="stat-box">Consistência: <span id="consistencyResult">0ms</span></div>
+            </div>
+        </div>
+        <div class="btn-agrupar">
+            <button id="btn" onclick="restartGame()">Reiniciar</button>
+            <button id="btn" onclick="goToScreen(2)">Alterar Configurações</button>
+            <button id="btn" onclick="finalizeGame()">Finalizar</button>
+        </div>
+    </div>
+
+    <!-- Sons de feedback -->
+    <audio id="hitSound" src="assets/hit-sound.mp3"></audio>
+    <audio id="missSound" src="assets/miss-sound.mp3"></audio>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>
