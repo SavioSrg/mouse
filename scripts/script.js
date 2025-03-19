@@ -163,6 +163,16 @@ function endGame() {
         document.getElementById('clickAccuracy').innerText = `${clickAccuracy}%`;
     }
 
+    // Verificar se o jogador pode subir de nível
+    const levelUpMessage = document.getElementById('levelUpMessage');
+    if (checkLevelUp()) {
+        levelUpMessage.innerText = "Parabéns! Você subiu de nível! 🎉";
+        levelUpMessage.style.color = "#4caf50"; // Verde para sucesso
+    } else {
+        levelUpMessage.innerText = "Continue praticando para subir de nível! 💪";
+        levelUpMessage.style.color = "#ff5722"; // Laranja para incentivo
+    }
+
     saveGameData(metrics);
     goToScreen(4);
 }
@@ -296,4 +306,34 @@ function finalizeGame() {
     localStorage.removeItem('gameAttempts');
     attemptNumber = 1; // Reinicia o contador de tentativas
     goToScreen(1);
+}
+
+function checkLevelUp() {
+    const score = parseInt(document.getElementById('score').innerText);
+    const averageTime = parseFloat(document.getElementById('averageTimeResult').innerText);
+    const standardDeviation = parseFloat(document.getElementById('consistencyResult').innerText);
+    const misses = parseInt(document.getElementById('misses').innerText);
+
+    if (autoMode) {
+        // Critérios para o modo automático
+        if (score >= 20 && averageTime <= 900 && standardDeviation <= 320 && misses <= 12) {
+            return true; // Pode subir de nível
+        } else {
+            return false; // Não pode subir de nível
+        }
+    } else {
+        // Critérios para o modo manual
+        const hits = parseInt(document.getElementById('hits').innerText);
+        const clicksHits = parseInt(document.getElementById('clicksHits').innerText);
+        const clicksMisses = parseInt(document.getElementById('clicksMisses').innerText);
+
+        const targetEfficiency = (hits / (hits + misses)) * 100;
+        const clickAccuracy = (clicksHits / (clicksHits + clicksMisses)) * 100;
+
+        if (score >= 35 && targetEfficiency >= 60 && clickAccuracy >= 70 && averageTime <= 900 && standardDeviation <= 300) {
+            return true; // Pode subir de nível
+        } else {
+            return false; // Não pode subir de nível
+        }
+    }
 }
